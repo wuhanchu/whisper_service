@@ -2,6 +2,7 @@ FROM docker.io/bitnami/pytorch:1.13.0
 USER root
 COPY "./" "./"
 RUN chmod 777 run.sh
+EXPOSE 5000
 
 RUN sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list 
 RUN apt update 

@@ -6,6 +6,13 @@
 
 1. python 3.7+
 
+## 运行
+
+```shell
+docker pull wuhanchu/whisper_server
+docker run -p 5000:5000 wuhanchu/whisper_server
+```
+
 ## 环境变量
 
 | 分组    | 配置项        | 说明                                                                                                      |

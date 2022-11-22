@@ -1,6 +1,7 @@
 FROM whisper_server:latest
 USER root
 COPY "./" "./"
+EXPOSE 5000
 
 RUN chmod 777 run.sh
 
