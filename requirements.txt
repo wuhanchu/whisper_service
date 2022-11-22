@@ -1,2 +1,3 @@
-Flask==1.1.2
+git+https://github.com/openai/whisper.git 
+Flask==2.2.2
 gunicorn>=19.9.0

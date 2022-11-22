@@ -23,3 +23,11 @@
 ├── config.py -- 项目配置文件
 ├── Dockerfile -- 项目镜像构建文件
 ```
+
+## 编译
+
+初始化编译
+`docker build  . -t whisper_server`
+
+更新编译
+`docker build -f ./Dockerfile.continue . -t whisper_server`
