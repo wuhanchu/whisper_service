@@ -7,6 +7,7 @@ import os
 import time
 
 import whisper
+from zhconv import convert
 from flask import request, jsonify, Flask
 from config import Config
 
@@ -19,9 +20,22 @@ os.makedirs(temp_folder, exist_ok=True)
 
 
 def save_file(file):
-    file_path = os.path.join(temp_folder, str(time.time()) + os.path.splitext(file.filename)[-1])
+    file_path = os.path.join(
+        temp_folder, str(time.time()) + os.path.splitext(file.filename)[-1]
+    )
     file.save(file_path)
     return file_path
+
+
+def convert_to_simplified_chinese(content: dict):
+    """
+    中文繁体转中文简体
+    """
+    content["text"] = convert(content["text"], "zh-cn")
+    content["segments"] = [
+        {**segment, "text": convert(segment["text"], "zh-cn")}
+        for segment in content["segments"]
+    ]
 
 
 @app.route("/asr", methods=["POST"])
@@ -33,9 +47,12 @@ def asr():
 
     if "file" not in param:
         return jsonify({"message": "invalid file param", "code": "-1"})
-    
+
     file_path = save_file(param["file"])
     result = model.transcribe(file_path)
+
+    if result.get("language") == "zh":
+        convert_to_simplified_chinese(result)
 
     return jsonify({"message": "success", "code": "0", "result": result})
 
