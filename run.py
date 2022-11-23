@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Documents: https://github.com/shibing624/text2vec
+Documents: https://github.com/openai/whisper
 """
 import os
 import time
