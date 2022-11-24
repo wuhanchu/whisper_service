@@ -10,8 +10,13 @@
 
 ```shell
 docker pull wuhanchu/whisper_server
-docker run -p 5000:5000 wuhanchu/whisper_server
+docker run -p 5000:5000 -d --name whisper_server wuhanchu/whisper_server
 ```
+
+### volume
+
+//.cache/whisper 模型目录
+/var/whipser 临时文件夹
 
 ## 环境变量
 
@@ -34,7 +39,7 @@ docker run -p 5000:5000 wuhanchu/whisper_server
 ## 编译
 
 初始化编译
-`docker build  . -t whisper_server`
+`docker build  . -t wuhanchu/whisper_server`
 
 更新编译
-`docker build -f ./Dockerfile.continue . -t whisper_server`
+`docker build -f ./Dockerfile.continue . -t wuhanchu/whisper_server`
