@@ -7,12 +7,15 @@ import os
 import time
 
 import whisper
+
+from stable_whisper import modify_model
 from zhconv import convert
 from flask import request, jsonify, Flask
 from config import Config
 
 app = Flask(__name__, root_path=os.getcwd())
 model = whisper.load_model(Config.MODEL)
+modify_model(model)
 
 # 创建临时文件夹
 temp_folder = Config.TEMP_FOLDER
@@ -49,12 +52,25 @@ def asr():
         return jsonify({"message": "invalid file param", "code": "-1"})
 
     file_path = save_file(param["file"])
-    result = model.transcribe(file_path)
+    try:
+        result = model.transcribe(file_path)
 
-    if result.get("language") == "zh":
-        convert_to_simplified_chinese(result)
+        # 处理时间不要重叠
+        last_end = None
+        for item in result.get("segments", []):
+            if item.get("start") and item.get("start") == last_end:
+                item["start"] = float(item.get("start")) + 0.01
 
-    return jsonify({"message": "success", "code": "0", "result": result})
+            last_end = item.get("end")
+
+        # 转换简体繁体
+        if result.get("language") == "zh":
+            convert_to_simplified_chinese(result)
+
+        return jsonify({"message": "success", "code": "0", "result": result})
+    finally:
+        import os
+        os.remove(file_path)
 
 
 # 运行

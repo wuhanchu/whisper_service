@@ -42,4 +42,15 @@ docker run -p 5000:5000 -d --name whisper_server wuhanchu/whisper_server
 `docker build  . -t wuhanchu/whisper_server`
 
 更新编译
-`docker build -f ./Dockerfile.continue . -t wuhanchu/whisper_server`
+
+```shell
+docker build -f ./Dockerfile.continue . -t wuhanchu/whisper_server
+docker push wuhanchu/whisper_server
+```
+
+### cuda10.2
+
+```shell
+docker build -f ./Dockerfile.continue . -t wuhanchu/whisper_server:cuda10.2
+docker push wuhanchu/whisper_server:cuda10.2
+```
