@@ -51,6 +51,6 @@ docker push wuhanchu/whisper_server
 ### cuda10.2
 
 ```shell
-docker build -f ./Dockerfile.continue . -t wuhanchu/whisper_server:cuda10.2
+docker build -f ./Dockerfile_cuda10.2.continue . -t wuhanchu/whisper_server:cuda10.2
 docker push wuhanchu/whisper_server:cuda10.2
 ```

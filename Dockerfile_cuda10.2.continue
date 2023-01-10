@@ -1,4 +1,4 @@
-FROM wuhanchu/whisper_server:cuda10.2
+FROM wuhanchu/whisper_server:latest
 USER root
 
 COPY "./" "./"
