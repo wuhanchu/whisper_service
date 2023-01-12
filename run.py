@@ -63,6 +63,18 @@ def asr():
 
             last_end = item.get("end")
 
+        # 数据结构处理
+        if result.get("segments", []):
+            result["segments"] = [
+                {
+                    "id": segment["id"],
+                    "text": segment["text"],
+                    "start": segment["start"],
+                    "end": segment["end"],
+                }
+                for segment in result["segments"]
+            ]
+
         # 转换简体繁体
         if result.get("language") == "zh":
             convert_to_simplified_chinese(result)
@@ -70,6 +82,7 @@ def asr():
         return jsonify({"message": "success", "code": "0", "result": result})
     finally:
         import os
+
         os.remove(file_path)
 
 
