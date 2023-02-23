@@ -39,7 +39,9 @@ docker run -p 5000:5000 -d --name whisper_server wuhanchu/whisper_server
 ## 编译
 
 初始化编译
-`docker build  . -t wuhanchu/whisper_server`
+```shell
+docker build  . -t wuhanchu/whisper_server
+```
 
 更新编译
 
