@@ -3,6 +3,8 @@ USER root
 
 COPY "./" "./"
 RUN chmod 777 run.sh
-RUN pip3 install  -r ./requirements.txt   -i https://pypi.douban.com/simple/
+RUN export https_proxy=http://192.168.31.226:7890
+RUN pip3 uninstall -y openai-whisper
+RUN pip3 install  -r ./requirements.txt  
 RUN pip cache purge
 
